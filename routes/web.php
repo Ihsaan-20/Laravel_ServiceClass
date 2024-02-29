@@ -24,6 +24,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['middleware' => ['auth','admin','customer']], function () {
+    route::post('logout', [LoginController::class, 'logout'])->name('logout');
+});
+
+
 
 Route::group(['middleware' => ['auth','admin']], function () {
     Route::resource('/products', ProductController::class);
@@ -31,5 +36,8 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
 Route::group(['middleware' => ['customer']], function () {
     route::get('dashboard', [UserController::class, 'index'])->name('customer.index');
-    route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
