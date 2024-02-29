@@ -1,6 +1,8 @@
-@extends('layouts.app')
+
+@extends('custom_layouts.app')
+@section('title', 'Dashboard')
 @section('main')
-@include('user.modals')
+@include('customer.modals')
     <div class="row py-3">
         <div class="col-lg-8">
             <div class="card">

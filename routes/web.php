@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -26,4 +27,9 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth','admin']], function () {
     Route::resource('/products', ProductController::class);
+});
+
+Route::group(['middleware' => ['customer']], function () {
+    route::get('dashboard', [UserController::class, 'index'])->name('customer.index');
+    route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
